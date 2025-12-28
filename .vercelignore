@@ -1,0 +1,19 @@
+# Vercel ignore file - files not needed for production
+
+.DS_Store
+node_modules/
+.env.local
+.env.*.local
+*.log
+.git/
+.gitignore
+README.md
+VERCEL_DEPLOYMENT_GUIDE.md
+TODO.md
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.prettierrc
+.eslintrc.*
