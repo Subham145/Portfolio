@@ -66,7 +66,7 @@ function DockItem({
     baseItemSize,
     magnification,
     distance,
-    ref,
+    ref as React.RefObject<HTMLDivElement>,
     spring
   );
   const [showLabel, setShowLabel] = useState(false);
