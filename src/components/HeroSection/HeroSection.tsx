@@ -114,7 +114,7 @@ export const HeroSection = () => {
           </a>
 
           <a
-            href="https://drive.google.com/file/d/YOUR_DRIVE_ID/view"
+            href="https://drive.google.com/file/d/1KLQePp5fzgjS3Rt7-GUhSW2pESGOQ5_2/view?usp=drivesdk"
             target="_blank"
             rel="noopener noreferrer"
             style={{ 
