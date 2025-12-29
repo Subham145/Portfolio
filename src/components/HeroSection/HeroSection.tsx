@@ -101,8 +101,8 @@ export const HeroSection = () => {
           }}
         >
           <a
-            href="/resume/Hanuman-Jogi-Resume.pdf"
-            download
+            href="https://drive.google.com/uc?export=download&id=1KLQePp5fzgjS3Rt7-GUhSW2pESGOQ5_2"
+            download="Hanuman_Jogi_Resume.pdf"
             style={{ 
               backgroundColor: "#0ea5e9",
               color: "#ffffff"
