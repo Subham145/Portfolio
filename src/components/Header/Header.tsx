@@ -164,7 +164,7 @@ export default function Header() {
               bg-skyblue-50 dark:bg-skyblue-900/20 
               border border-skyblue-200 dark:border-skyblue-700/30
               hover:bg-skyblue-100 dark:hover:bg-skyblue-900/40 
-              transition-all hidden md:block"
+              transition-all"
               whileHover={{ 
                 scale: 1.15,
                 boxShadow: "0 0 20px rgba(14, 165, 233, 0.3)"
@@ -248,6 +248,45 @@ export default function Header() {
                       </a>
                     </motion.li>
                   ))}
+                  
+                  {/* Mobile Theme Toggle */}
+                  <motion.li
+                    {...({ variants: itemVariants } as MotionProps)}
+                  >
+                    <motion.button
+                      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                      className="p-3 rounded-lg bg-skyblue-50 dark:bg-skyblue-900/20 
+                      border border-skyblue-200 dark:border-skyblue-700/30
+                      hover:bg-skyblue-100 dark:hover:bg-skyblue-900/40 
+                      transition-all"
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.85 }}
+                    >
+                      <AnimatePresence mode="wait" initial={false}>
+                        {theme === "dark" ? (
+                          <motion.div
+                            key="moon-mobile"
+                            initial={{ y: -20, opacity: 0, rotate: -180 }}
+                            animate={{ y: 0, opacity: 1, rotate: 0 }}
+                            exit={{ y: 20, opacity: 0, rotate: 180 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <Moon size={24} className="text-skyblue-600 dark:text-skyblue-300" />
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="sun-mobile"
+                            initial={{ y: 20, opacity: 0, rotate: 180 }}
+                            animate={{ y: 0, opacity: 1, rotate: 0 }}
+                            exit={{ y: -20, opacity: 0, rotate: -180 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <Sun size={24} className="text-skyblue-500" />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.button>
+                  </motion.li>
                 </motion.ul>
               </motion.div>
             )}
