@@ -1,79 +1,40 @@
 "use client";
-import { motion, Easing } from "framer-motion";
-import { cn } from "../../lib/utils"; // Assuming you have a utility for class name concatenation
-import { useState, useEffect } from "react"; // Import useState and useEffect
+// FIX: Separated the type-only import for 'Easing'
+import { motion } from "framer-motion";
+import type { Easing } from "framer-motion"; 
+import { cn } from "../../lib/utils"; 
+import { useState, useEffect } from "react"; 
 
 interface TopStickyBarProps {
-  /**
-   * Controls the visibility of the bar. True to show, false to hide.
-   * This prop is ignored if `showOnScroll` is true.
-   */
-  show?: boolean; // Make optional as it might be controlled internally
-  /**
-   * If true, the bar's visibility will be controlled by scroll position.
-   * If false or undefined, the `show` prop controls visibility.
-   * @default false
-   */
+  show?: boolean; 
   showOnScroll?: boolean;
-  /**
-   * The scroll position (in pixels) after which the bar will become visible when `showOnScroll` is true.
-   * @default 200
-   */
   scrollThreshold?: number;
-  /**
-   * The content to display inside the sticky bar. Can be a string, JSX, or any React Node.
-   */
   children: React.ReactNode;
-  /**
-   * Optional. Additional Tailwind CSS classes to apply to the bar for styling.
-   * Defaults to basic styling for a top bar.
-   */
   className?: string;
-  /**
-   * Optional. The animation duration in seconds.
-   * @default 0.4
-   */
   duration?: number;
-  /**
-   * Optional. The easing function for the animation.
-   * @default "easeInOut"
-   */
   ease?: Easing | Easing[];
-  /**
-   * Optional. The initial vertical offset for the animation (when hidden).
-   * @default -50
-   */
   initialY?: number;
-  /**
-   * Optional. The vertical offset when the bar is shown.
-   * @default 0
-   */
   visibleY?: number;
-  /**
-   * Optional. The vertical offset when the bar is hidden.
-   * @default -50
-   */
   hiddenY?: number;
 }
 
 const TopStickyBar = ({
-  show: externalShow = false, // Renamed to avoid conflict with internal state
+  show: externalShow = false,
   showOnScroll = false,
   scrollThreshold = 200,
   children,
   className,
   duration = 0.4,
-  ease = "easeInOut",
+  ease = "easeInOut" as Easing, // FIX: Explicitly cast the default string to Easing type
   initialY = -50,
   visibleY = 0,
   hiddenY = -50,
 }: TopStickyBarProps) => {
-  const [internalShow, setInternalShow] = useState(externalShow); // Initialize with externalShow
+  const [internalShow, setInternalShow] = useState(externalShow);
 
-  // Effect to manage scroll-based visibility
   useEffect(() => {
     if (!showOnScroll) {
-      setInternalShow(externalShow); // If not scroll-controlled, use external prop
+      setInternalShow(externalShow);
       return;
     }
 
@@ -86,14 +47,11 @@ const TopStickyBar = ({
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Call once on mount to set initial state based on current scroll
     handleScroll();
 
-    return () => window.
-removeEventListener("scroll", handleScroll);
-  }, [showOnScroll, scrollThreshold, externalShow]); // Re-run if these props change
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [showOnScroll, scrollThreshold, externalShow]);
 
-  // Determine the final `show` value
   const finalShow = showOnScroll ? internalShow : externalShow;
 
   return (

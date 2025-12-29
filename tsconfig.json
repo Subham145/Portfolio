@@ -1,23 +1,19 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
-    "target": "es2022",
-    "lib": ["es2022", "dom", "dom.iterable"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+
     "strict": false,
     "skipLibCheck": true,
     "allowJs": true,
-    "jsx": "react-jsx",
     "isolatedModules": true,
-    "esModuleInterop": true
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
   },
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src"]
 }

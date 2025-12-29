@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+// FIX 1: Use 'import type' for Variants to satisfy verbatimModuleSyntax
+import { motion, type Variants } from "framer-motion";
 import React, {
-  ElementType,
-  ReactNode,
+  type ElementType, // FIX 2: Added 'type' keyword
+  type ReactNode,   // FIX 3: Added 'type' keyword
   useEffect,
   useState,
 } from "react";
@@ -34,7 +35,7 @@ export const TypingText = ({
   color = "text-white",
   letterSpacing = "tracking-wide",
   align = "left",
-  loop = false,
+  loop = false, // Note: Error TS6133 warned this is unused. Keeping for now.
 }: TypingTextProps) => {
   const [textContent, setTextContent] = useState<string>("");
 
@@ -46,11 +47,12 @@ export const TypingText = ({
       if (Array.isArray(node)) {
         return node.map(extractText).join("");
       }
+      // FIX 4: Casting node to 'any' to avoid "node.props is unknown" (TS18046)
       if (
         React.isValidElement(node) &&
-        typeof node.props.children !== "undefined"
+        (node.props as any).children !== undefined
       ) {
-        return extractText(node.props.children);
+        return extractText((node.props as any).children);
       }
       return "";
     };
@@ -68,7 +70,7 @@ export const TypingText = ({
       opacity: 1,
       scale: 1,
       transition: {
-        delay: delay + i * (duration / characters.length),
+        delay: delay + i * (duration / (characters.length || 1)),
         duration: 0.3,
         ease: "easeInOut",
       },
@@ -96,8 +98,9 @@ export const TypingText = ({
         initial="hidden"
         animate="visible"
         aria-label={textContent}
-        role="text"
       >
+        {/* FIX 5: Removed role="text" as it's not a valid standard ARIA role 
+            and was causing "type never" conflicts in some TS versions */}
         {characters.map((char, index) => (
           <motion.span
             key={`${char}-${index}`}
