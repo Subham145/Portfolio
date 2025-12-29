@@ -1,8 +1,10 @@
 "use client";
 
 import { cn } from "../../lib/utils";
-import React, { useEffect, useState, type ReactNode } from "react"; // Added 'type' for ReactNode
-import { motion, type HTMLMotionProps } from "framer-motion"; // Added 'type' for HTMLMotionProps
+import React, { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import type { HTMLMotionProps } from "framer-motion";
 
 export interface VideoTextProps {
   src: string;

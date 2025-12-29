@@ -117,6 +117,7 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
 
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+        timeoutRef.current = undefined;
       }
 
       timeoutRef.current = setTimeout(function () {
