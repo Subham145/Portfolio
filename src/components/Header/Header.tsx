@@ -157,10 +157,10 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle Button - Desktop Only */}
             <motion.button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2.5 rounded-lg text-sm font-semibold
+              className="p-2.5 rounded-lg text-sm font-semibold hidden md:flex
               bg-skyblue-50 dark:bg-skyblue-900/20 
               border border-skyblue-200 dark:border-skyblue-700/30
               hover:bg-skyblue-100 dark:hover:bg-skyblue-900/40 
@@ -196,13 +196,51 @@ export default function Header() {
               </AnimatePresence>
             </motion.button>
 
-            {/* Mobile Menu Button - Hamburger */}
-            <button
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden text-slate-700 dark:text-skyblue-400"
+            {/* Mobile Menu Controls - Centered Hamburger + Theme Toggle */}
+            <div className="md:hidden flex items-center gap-2 flex-1 justify-center">
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="text-slate-700 dark:text-skyblue-400"
+              >
+                <Menu size={24} />
+              </button>
+            </div>
+
+            {/* Mobile Theme Toggle - Right Side */}
+            <motion.button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="md:hidden p-2.5 rounded-lg
+              bg-skyblue-50 dark:bg-skyblue-900/20 
+              border border-skyblue-200 dark:border-skyblue-700/30
+              hover:bg-skyblue-100 dark:hover:bg-skyblue-900/40 
+              transition-all"
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.85 }}
             >
-              <Menu size={24} />
-            </button>
+              <AnimatePresence mode="wait" initial={false}>
+                {theme === "dark" ? (
+                  <motion.div
+                    key="moon-mobile-header"
+                    initial={{ y: -20, opacity: 0, rotate: -180 }}
+                    animate={{ y: 0, opacity: 1, rotate: 0 }}
+                    exit={{ y: 20, opacity: 0, rotate: 180 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Moon size={20} className="text-skyblue-600 dark:text-skyblue-300" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="sun-mobile-header"
+                    initial={{ y: 20, opacity: 0, rotate: 180 }}
+                    animate={{ y: 0, opacity: 1, rotate: 0 }}
+                    exit={{ y: -20, opacity: 0, rotate: -180 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Sun size={20} className="text-skyblue-500" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </div>
 
           {/* Mobile Sidebar */}
@@ -248,45 +286,6 @@ export default function Header() {
                       </a>
                     </motion.li>
                   ))}
-                  
-                  {/* Mobile Theme Toggle */}
-                  <motion.li
-                    {...({ variants: itemVariants } as MotionProps)}
-                  >
-                    <motion.button
-                      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                      className="p-3 rounded-lg bg-skyblue-50 dark:bg-skyblue-900/20 
-                      border border-skyblue-200 dark:border-skyblue-700/30
-                      hover:bg-skyblue-100 dark:hover:bg-skyblue-900/40 
-                      transition-all"
-                      whileHover={{ scale: 1.15 }}
-                      whileTap={{ scale: 0.85 }}
-                    >
-                      <AnimatePresence mode="wait" initial={false}>
-                        {theme === "dark" ? (
-                          <motion.div
-                            key="moon-mobile"
-                            initial={{ y: -20, opacity: 0, rotate: -180 }}
-                            animate={{ y: 0, opacity: 1, rotate: 0 }}
-                            exit={{ y: 20, opacity: 0, rotate: 180 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <Moon size={24} className="text-skyblue-600 dark:text-skyblue-300" />
-                          </motion.div>
-                        ) : (
-                          <motion.div
-                            key="sun-mobile"
-                            initial={{ y: 20, opacity: 0, rotate: 180 }}
-                            animate={{ y: 0, opacity: 1, rotate: 0 }}
-                            exit={{ y: -20, opacity: 0, rotate: -180 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <Sun size={24} className="text-skyblue-500" />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.button>
-                  </motion.li>
                 </motion.ul>
               </motion.div>
             )}
